@@ -1681,3 +1681,325 @@ Your tuple with converted data types: (1, 'hello', 3.14, True)
 ```
 
 In this case, `eval(i)` automatically converts numeric strings to `int` or `float`, and recognizes `True`/`False` as boolean values. However, be cautious with `eval()` since it executes the input directly, which might not be safe for arbitrary inputs.
+
+## Introduction to Sets
+
+Sets are a built-in data type in Python that allow you to store collections of **unique** items. Unlike lists and tuples, sets do not maintain any specific order, and they automatically eliminate duplicates. Sets are particularly useful for operations that involve unique items, such as membership tests and mathematical set operations like union, intersection, and difference.
+
+#### Key Characteristics of Sets:
+- **Unordered**: The elements do not have a specific order.
+- **Unique**: No duplicate elements are allowed.
+- **Mutable**: You can add or remove items from a set.
+
+### Creating Sets
+
+You can create sets in a few different ways:
+
+1. **Using Curly Braces**:
+   ```python
+   my_set = {1, 2, 3, 4, 5}
+   ```
+
+2. **Using the `set()` Constructor**:
+   ```python
+   my_empty_set = set()  # Creates an empty set
+   my_set = set([1, 2, 3, 4, 5, 6])  # Converts a list to a set
+   ```
+
+3. **Eliminating Duplicates**:
+   ```python
+   my_set = set([1, 2, 3, 6, 5, 4, 5, 6])  # Duplicates are removed
+   ```
+
+### Basic Set Operations
+
+1. **Adding and Removing Elements**:
+   - **Add an Element**:
+     ```python
+     my_set.add(7)  # Adds 7 to the set
+     ```
+   - **Remove an Element**:
+     ```python
+     my_set.remove(3)  # Removes 3 from the set
+     # If the element is not found, it raises a KeyError
+     ```
+   - **Using `discard()`**:
+     ```python
+     my_set.discard(10)  # Does nothing if 10 is not found
+     ```
+   - **Pop an Element**:
+     ```python
+     removed_element = my_set.pop()  # Removes and returns an arbitrary element
+     ```
+   - **Clear All Elements**:
+     ```python
+     my_set.clear()  # Removes all elements from the set
+     ```
+
+2. **Membership Test**:
+   ```python
+   print(3 in my_set)  # Returns True if 3 is in the set
+   print(10 in my_set)  # Returns False if 10 is not in the set
+   ```
+
+### Mathematical Operations on Sets
+
+1. **Union**:
+   Combines all unique elements from both sets.
+   ```python
+   union_set = set1.union(set2)  # or set1 | set2
+   ```
+
+2. **Intersection**:
+   Returns elements that are common to both sets.
+   ```python
+   intersection_set = set1.intersection(set2)  # or set1 & set2
+   ```
+
+3. **Difference**:
+   Returns elements in the first set that are not in the second set.
+   ```python
+   difference_set = set1.difference(set2)  # or set1 - set2
+   ```
+
+4. **Symmetric Difference**:
+   Returns elements in either set but not in both.
+   ```python
+   symmetric_difference_set = set1.symmetric_difference(set2)  # or set1 ^ set2
+   ```
+
+### Set Methods
+
+- **Subset**: Checks if all elements of one set are in another.
+  ```python
+  print(set1.issubset(set2))
+  ```
+
+- **Superset**: Checks if one set contains all elements of another.
+  ```python
+  print(set1.issuperset(set2))
+  ```
+
+### Example: Counting Unique Words in a Text
+
+You can use sets to eliminate duplicates from a list of words:
+```python
+text = "In this tutorial we are discussing about sets"
+words = text.split()  # Splits the text into words
+unique_words = set(words)  # Converts the list of words to a set
+print(unique_words)
+print(len(unique_words))  # Counts the number of unique words
+```
+
+### Differences Between Sets and Other Data Types
+
+- **Lists**: Ordered, can contain duplicates, and elements can be accessed by index.
+- **Tuples**: Ordered, can contain duplicates, immutable (cannot be changed after creation).
+- **Sets**: Unordered, cannot contain duplicates, and are mutable.
+
+Sets are particularly useful when you need to ensure all elements are unique and do not care about the order of those elements. They provide efficient methods for performing mathematical operations, making them a versatile data structure in Python.
+
+---
+---
+
+## Introduction to Dictionaries
+
+Dictionaries are unordered collections of items that store data in key-value pairs. In a dictionary, keys must be unique and immutable (like strings, numbers, or tuples), while values can be of any type.
+
+### Creating Dictionaries
+
+```python
+# Creating an empty dictionary
+empty_dict = {}
+print(type(empty_dict))  # Output: <class 'dict'>
+
+# Creating a dictionary with student information
+student = {"name": "Assaf", "age": 21, "grade": "A"}
+print(student)  # Output: {'name': 'Assaf', 'age': 21, 'grade': 'A'}
+print(type(student))  # Output: <class 'dict'>
+
+# Note: Keys must be unique; if you repeat a key, the last value will be used.
+student = {"name": "Assaf", "age": 21, "name": "A+"}
+print(student)  # Output: {'name': 'A+', 'age': 21}
+```
+
+### Accessing Dictionary Elements
+
+```python
+# Accessing dictionary elements using keys
+print(student["name"])  # Output: Assaf
+print(student["age"])  # Output: 21
+
+# Using the get() method
+print(student.get("grade"))  # Output: A
+print(student.get("last_name"))  # Output: None
+print(student.get("last_name", "Not Available"))  # Output: Not Available
+```
+
+### Modifying Dictionary Elements
+
+Dictionaries are mutable, meaning you can add, update, or delete elements.
+
+```python
+print(student)  # Output: {'name': 'Assaf', 'age': 21, 'grade': 'A'}
+
+# Updating a value
+student["age"] = 22
+print(student)  # Output: {'name': 'Assaf', 'age': 22, 'grade': 'A'}
+
+# Adding a new key-value pair
+student["address"] = "India"
+print(student)  # Output: {'name': 'Assaf', 'age': 22, 'grade': 'A', 'address': 'India'}
+
+# Deleting a key-value pair
+del student["grade"]
+print(student)  # Output: {'name': 'Assaf', 'age': 22, 'address': 'India'}
+```
+
+### Dictionary Methods
+
+```python
+# Getting all keys
+keys = student.keys()
+print(keys)  # Output: dict_keys(['name', 'age', 'address'])
+
+# Getting all values
+values = student.values()
+print(values)  # Output: dict_values(['Assaf', 22, 'India'])
+
+# Getting all key-value pairs
+items = student.items()
+print(items)  # Output: dict_items([('name', 'Assaf'), ('age', 22), ('address', 'India')])
+```
+
+### Shallow Copy
+
+```python
+# Creating a shallow copy of the dictionary
+student_copy = student.copy()
+print(student_copy)  # Output: {'name': 'Assaf', 'age': 22, 'address': 'India'}
+
+# Modifying the original dictionary
+student["name"] = "Assaf Updated"
+print(student)  # Output: {'name': 'Assaf Updated', 'age': 22, 'address': 'India'}
+print(student_copy)  # Output: {'name': 'Assaf', 'age': 22, 'address': 'India'}
+```
+
+### Iterating Over Dictionaries
+
+```python
+# Iterating over keys
+for key in student.keys():
+    print(key)
+
+# Iterating over values
+for value in student.values():
+    print(value)
+
+# Iterating over key-value pairs
+for key, value in student.items():
+    print(f"{key}: {value}")
+```
+
+### Nested Dictionaries
+
+```python
+# Creating nested dictionaries
+students = {
+    "student1": {"name": "Assaf", "age": 21},
+    "student2": {"name": "Peter", "age": 35}
+}
+
+# Accessing nested dictionary elements
+print(students["student1"]["name"])  # Output: Assaf
+print(students["student2"]["age"])  # Output: 35
+```
+
+### Dictionary Comprehension
+
+```python
+# Creating a dictionary using comprehension
+squares = {x: x ** 2 for x in range(5)}
+print(squares)  # Output: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Conditional dictionary comprehension
+evens = {x: x ** 2 for x in range(10) if x % 2 == 0}
+print(evens)  # Output: {0: 0, 2: 4, 4: 16, 6: 36, 8: 64}
+```
+
+### Practical Examples
+
+#### Counting Frequency of Elements in a List
+
+```python
+numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+frequency = {}
+
+for number in numbers:
+    if number in frequency:
+        frequency[number] += 1
+    else:
+        frequency[number] = 1
+print(frequency)  # Output: {1: 1, 2: 2, 3: 3, 4: 4}
+```
+
+#### Merging Two Dictionaries
+
+```python
+dict1 = {"a": 1, "b": 2}
+dict2 = {"b": 3, "c": 4}
+merged_dict = {**dict1, **dict2}
+print(merged_dict)  # Output: {'a': 1, 'b': 3, 'c': 4}
+```
+
+---
+***The curly braces `{}`*** are used to create both sets and dictionaries in Python, but there are important distinctions between them:
+
+1. **Dictionaries**: 
+   - Defined using key-value pairs.
+   - Example: 
+     ```python
+     my_dict = {"name": "Assaf", "age": 21}
+     ```
+
+2. **Sets**: 
+   - Contain only unique elements and do not have key-value pairs.
+   - Example: 
+     ```python
+     my_set = {1, 2, 3, 4, 5}
+     ```
+
+### Key Differences:
+- **Data Structure**: 
+  - Sets are collections of unique items without any associated values.
+  - Dictionaries are collections of key-value pairs, where each key must be unique.
+
+- **Accessing Elements**:
+  - In a set, you can only access items based on their value.
+  - In a dictionary, you can access values using their corresponding keys.
+
+### Creating an Empty Set and Dictionary:
+- To create an empty set, you must use the `set()` function:
+  ```python
+  empty_set = set()  # Creates an empty set
+  ```
+  
+- To create an empty dictionary, you can use either `{}` or `dict()`:
+  ```python
+  empty_dict = {}    # Creates an empty dictionary
+  empty_dict2 = dict()  # Also creates an empty dictionary
+  ```
+
+### Example:
+```python
+# Dictionary
+my_dict = {"name": "Assaf", "age": 21}
+print(my_dict)  # Output: {'name': 'Assaf', 'age': 21}
+
+# Set
+my_set = {1, 2, 3, 4, 5}
+print(my_set)  # Output: {1, 2, 3, 4, 5}
+```
+while the curly braces look the same, they represent different data types in Python!
+
+---
