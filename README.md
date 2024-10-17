@@ -435,4 +435,659 @@ Exponentiation: 20736.0
 ```
 
 ---
+---
+
+## **Conditional Statements (if, elif, else)**
+
+### **Video Outline**:
+1. Introduction to Conditional Statements
+2. if Statement
+3. else Statement
+4. elif Statement
+5. Nested Conditional Statements
+6. Practical Examples
+7. Common Errors and Best Practices
+
+---
+
+### **1. if Statement**
+
+The `if` statement checks a condition, and if it's `True`, it executes the indented block of code. 
+
+Example:
+
+```python
+age = 20
+
+if age >= 18:
+    print("You are allowed to vote in the elections")
+```
+
+**Output**:
+```
+You are allowed to vote in the elections
+```
+
+**Explanation**: Since `age >= 18` is `True`, the code inside the `if` block gets executed.
+
+---
+
+### **2. else Statement**
+
+The `else` statement executes a block of code if the condition in the `if` statement is `False`.
+
+Example:
+
+```python
+age = 16
+
+if age >= 18:
+    print("You are eligible for voting")
+else:
+    print("You are a minor")
+```
+
+**Output**:
+```
+You are a minor
+```
+
+---
+
+### **3. elif Statement**
+
+The `elif` statement allows you to check multiple conditions. It stands for "else if."
+
+Example:
+
+```python
+age = 17
+
+if age < 13:
+    print("You are a child")
+elif age < 18:
+    print("You are a teenager")
+else:
+    print("You are an adult")
+```
+
+**Output**:
+```
+You are a teenager
+```
+
+---
+
+### **4. Nested Conditional Statements**
+
+You can place one or more `if`, `elif`, or `else` statements inside another to create nested conditions.
+
+Example:
+
+```python
+num = int(input("Enter the number: "))
+
+if num > 0:
+    print("The number is positive")
+    if num % 2 == 0:
+        print("The number is even")
+    else:
+        print("The number is odd")
+else:
+    print("The number is zero or negative")
+```
+
+---
+
+### **5. Practical Examples**
+
+#### **Example 1: Leap Year Check**
+
+```python
+year = int(input("Enter the year: "))
+
+if year % 4 == 0:
+    if year % 100 == 0:
+        if year % 400 == 0:
+            print(year, "is a leap year")
+        else:
+            print(year, "is not a leap year")
+    else:
+        print(year, "is a leap year")
+else:
+    print(year, "is not a leap year")
+```
+
+---
+
+#### **Example 2: Simple Calculator**
+
+```python
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operation = input("Enter operation (+, -, *, /): ")
+
+if operation == '+':
+    result = num1 + num2
+elif operation == '-':
+    result = num1 - num2
+elif operation == '*':
+    result = num1 * num2
+elif operation == '/':
+    if num2 != 0:
+        result = num1 / num2
+    else:
+        result = "Error! Division by zero."
+else:
+    result = "Invalid operation."
+
+print("Result:", result)
+```
+
+---
+
+#### **Example 3: Ticket Price Based on Age and Student Status**
+
+```python
+age = int(input("Enter your age: "))
+is_student = input("Are you a student? (yes/no): ").lower()
+
+if age < 5:
+    price = "Free"
+elif age <= 12:
+    price = "$10"
+elif age <= 17:
+    if is_student == 'yes':
+        price = "$12"
+    else:
+        price = "$15"
+elif age <= 64:
+    if is_student == 'yes':
+        price = "$18"
+    else:
+        price = "$25"
+else:
+    price = "$20"
+
+print("Ticket Price:", price)
+```
+
+---
+
+#### **Example 4: Employee Bonus Calculation**
+
+```python
+years_of_service = int(input("Enter years of service: "))
+performance_rating = float(input("Enter performance rating (1.0 to 5.0): "))
+
+if performance_rating >= 4.5:
+    if years_of_service > 10:
+        bonus_percentage = 20
+    elif years_of_service > 5:
+        bonus_percentage = 15
+    else:
+        bonus_percentage = 10
+elif performance_rating >= 3.5:
+    if years_of_service > 10:
+        bonus_percentage = 15
+    elif years_of_service > 5:
+        bonus_percentage = 10
+    else:
+        bonus_percentage = 5
+else:
+    bonus_percentage = 0
+
+salary = float(input("Enter current salary: "))
+bonus_amount = salary * bonus_percentage / 100
+
+print("Bonus Amount: ${:.2f}".format(bonus_amount))
+```
+
+---
+
+#### **Example 5: User Login System**
+
+```python
+stored_username = "admin"
+stored_password = "password123"
+
+username = input("Enter username: ")
+password = input("Enter password: ")
+
+if username == stored_username:
+    if password == stored_password:
+        print("Login successful!")
+    else:
+        print("Incorrect password.")
+else:
+    print("Username not found.")
+```
+
+---
+---
+
+## **Loops**
+
+Loops allow you to execute a block of code multiple times. There are two main types of loops in Python: `for` loops and `while` loops.
+
+---
+
+### **1. for Loop**
+
+The `for` loop is used to iterate over a sequence (like a list, tuple, string, or range) and execute a block of code for each item in the sequence.
+
+#### **Example 1: Iterating over a range**
+
+```python
+for i in range(5):
+    print(i)
+```
+
+**Output**:
+```
+0
+1
+2
+3
+4
+```
+
+#### **Example 2: Iterating over a string**
+
+```python
+name = "Mohamed Assaf"
+
+for char in name:
+    print(char)
+```
+
+**Output**:
+```
+M
+o
+h
+a
+m
+e
+d
+
+A
+s
+s
+a
+f
+```
+
+#### **Example 3: Iterating with a step value**
+
+```python
+for i in range(1, 10, 2):
+    print(i)
+```
+
+**Output**:
+```
+1
+3
+5
+7
+9
+```
+
+---
+
+### **2. while Loop**
+
+The `while` loop continues to execute the block of code as long as the given condition is `True`.
+
+#### **Example 1: Basic while loop**
+
+```python
+count = 0
+
+while count < 5:
+    print(count)
+    count += 1
+```
+
+**Output**:
+```
+0
+1
+2
+3
+4
+```
+
+---
+
+### **3. Loop Control Statements**
+
+Loop control statements change the execution flow of loops.
+
+#### **1. break Statement**
+
+The `break` statement is used to exit the loop prematurely when a certain condition is met.
+
+#### **Example**:
+
+```python
+for i in range(10):
+    if i == 5:
+        break
+    print(i)
+```
+
+**Output**:
+```
+0
+1
+2
+3
+4
+```
+
+---
+
+#### **2. continue Statement**
+
+The `continue` statement skips the current iteration of the loop and moves to the next iteration.
+
+#### **Example**:
+
+```python
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)
+```
+
+**Output**:
+```
+1
+3
+5
+7
+9
+```
+
+---
+
+#### **3. pass Statement**
+
+The `pass` statement is a null operation. It is used as a placeholder when no action is required for certain conditions.
+
+#### **Example**:
+
+```python
+for i in range(5):
+    if i == 3:
+        pass
+    print(i)
+```
+
+**Output**:
+```
+0
+1
+2
+3
+4
+```
+
+---
+
+### **4. Nested Loops**
+
+A nested loop is a loop inside another loop. The inner loop executes completely each time the outer loop runs one iteration.
+
+#### **Example**:
+
+```python
+for i in range(3):
+    for j in range(2):
+        print(f"i:{i}, j:{j}")
+```
+
+**Output**:
+```
+i:0, j:0
+i:0, j:1
+i:1, j:0
+i:1, j:1
+i:2, j:0
+i:2, j:1
+```
+
+---
+
+### **5. Practical Examples of Loops**
+
+#### **Example 1: Sum of First N Natural Numbers (Using `for` loop)**
+
+```python
+n = 10
+sum = 0
+
+for i in range(1, n+1):
+    sum += i
+
+print("Sum of first", n, "natural numbers:", sum)
+```
+
+**Output**:
+```
+Sum of first 10 natural numbers: 55
+```
+
+#### **Example 2: Prime Numbers between 1 and 100** 
+### Key Points:
+- The `else` block runs if the `for` loop **iterates over all items**.
+- If the loop is **terminated early** by a `break` statement, the `else` block is **skipped**.
+```python
+for num in range(1, 101):
+    if num > 1:
+        for i in range(2, num):
+            if num % i == 0:
+                break
+        else:
+            print(num)
+```
+
+**Output**:
+```
+2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97
+```
+
+---
+---
+
+### Introduction to Lists
+- **Lists** in Python are ordered, mutable collections of items that can contain items of different data types such as integers, strings, floats, or even other lists.
+- Lists are represented using square brackets `[]`.
+
+### Creating Lists
+- You can create an empty list or a list with values.
+  
+```python
+lst = []  # Empty list
+print(type(lst))  # Output: <class 'list'>
+
+names = ["Assaf", "Aysha", "Sumaya", 1, 2, 3]  # List with mixed data types
+print(names)
+```
+
+**Output**:
+```plaintext
+['Assaf', 'Aysha', 'Sumaya', 1, 2, 3]
+```
+
+### Accessing List Elements
+- List elements are indexed starting from `0`.
+- You can access items using positive or negative indices.
+
+```python
+fruits = ["apple", "banana", "cherry", "kiwi", "guava"]
+print(fruits[0])    # Output: apple
+print(fruits[2])    # Output: cherry
+print(fruits[-1])   # Output: guava (negative index for last item)
+```
+
+### Modifying List Elements
+- Lists are mutable, meaning you can change their elements.
+
+```python
+fruits[1] = "watermelon"
+print(fruits)  # Output: ['apple', 'watermelon', 'cherry', 'kiwi', 'guava']
+```
+
+### List Methods
+- Python provides several built-in methods to modify and interact with lists.
+
+1. **`append()`**: Adds an item to the end.
+2. **`insert()`**: Inserts an item at a specific index.
+3. **`remove()`**: Removes the first occurrence of an item.
+4. **`pop()`**: Removes and returns the last element (or by index).
+5. **`index()`**: Returns the index of the first occurrence of an item.
+6. **`count()`**: Counts the occurrences of an item in the list.
+7. **`sort()`**: Sorts the list in ascending order.
+8. **`reverse()`**: Reverses the order of the list.
+9. **`clear()`**: Removes all items from the list.
+
+**Examples**:
+
+```python
+fruits.append("orange")
+print(fruits)  # Output: ['apple', 'watermelon', 'cherry', 'kiwi', 'guava', 'orange']
+
+fruits.insert(1, "banana")
+print(fruits)  # Output: ['apple', 'banana', 'watermelon', 'cherry', 'kiwi', 'guava', 'orange']
+
+fruits.remove("banana")
+print(fruits)  # Output: ['apple', 'watermelon', 'cherry', 'kiwi', 'guava', 'orange']
+
+last_fruit = fruits.pop()
+print(last_fruit)  # Output: orange
+print(fruits)      # Output: ['apple', 'watermelon', 'cherry', 'kiwi', 'guava']
+```
+
+### Slicing Lists
+- You can access parts of a list using **slicing**.
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(numbers[2:5])  # Output: [3, 4, 5] (index 2 to 4)
+print(numbers[:5])   # Output: [1, 2, 3, 4, 5] (first 5 elements)
+print(numbers[5:])   # Output: [6, 7, 8, 9, 10] (from index 5 onward)
+print(numbers[::2])  # Output: [1, 3, 5, 7, 9] (step of 2)
+print(numbers[::-1]) # Output: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] (reversed)
+```
+
+### Iterating Over Lists
+- You can loop through a list using a `for` loop.
+
+```python
+for number in numbers:
+    print(number)
+```
+
+- To get both the **index** and **value**, use `enumerate()`:
+
+```python
+for index, number in enumerate(numbers):
+    print(f"Index: {index}, Value: {number}")
+```
+
+### List Comprehensions
+- List comprehensions provide a concise way to create lists.
+
+#### Basic Syntax:
+```python
+squares = [num**2 for num in range(10)]
+print(squares)  # Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+#### With Conditional Logic:
+```python
+even_numbers = [num for num in range(10) if num % 2 == 0]
+print(even_numbers)  # Output: [0, 2, 4, 6, 8]
+```
+
+#### Nested List Comprehension:
+```python
+lst1 = [1, 2, 3]
+lst2 = ['a', 'b', 'c']
+
+pairs = [[i, j] for i in lst1 for j in lst2]
+print(pairs)
+# Output: [[1, 'a'], [1, 'b'], [1, 'c'], [2, 'a'], [2, 'b'], [2, 'c'], [3, 'a'], [3, 'b'], [3, 'c']]
+```
+
+### Nested Lists
+- A **nested list** is a list within another list.
+
+```python
+nested_list = [[1, 2, 3], ['a', 'b', 'c']]
+print(nested_list[0])  # Output: [1, 2, 3]
+print(nested_list[1][2])  # Output: 'c'
+```
+
+### Practical Examples and Common Errors
+
+1. **Managing a To-Do List**:
+```python
+to_do_list = ["Buy groceries", "Pay bills", "Clean house"]
+to_do_list.append("Go for a run")
+to_do_list.remove("Clean house")
+
+for task in to_do_list:
+    print(f"- {task}")
+```
+
+2. **Student Grades**:
+```python
+grades = [85, 92, 78, 90]
+grades.append(95)
+
+average = sum(grades) / len(grades)
+print(f"Average Grade: {average:.2f}")  # Output: Average Grade: 88.00
+```
+
+3. **Common Errors**:
+- **IndexError**: Trying to access an element at an index that doesn't exist:
+  
+```python
+print(fruits[10])  # Error: IndexError: list index out of range
+```
+
+- **TypeError**: Performing unsupported operations on incompatible types.
+
+```python
+print(fruits + 3)  # Error: TypeError: can only concatenate list (not "int") to list
+```
+
 
