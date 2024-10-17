@@ -3211,3 +3211,197 @@ For example:
 
 ### **Conclusion**
 Python's Standard Library contains a wide range of modules that make programming easier. Whether it's working with files, handling data formats like JSON and CSV, manipulating dates and times, or using advanced math and random functions, Python’s Standard Library has you covered! Understanding and using these modules helps you write efficient, clean, and powerful Python programs.
+
+## File Operation:
+
+### 1. **Read a Whole File**
+```python
+with open('example.txt', 'r') as file:
+    content = file.read()
+    print(content)
+```
+- Opens `example.txt` in read mode (`'r'`), reads all its content, and prints it.
+- Output: 
+  ```
+  Hello How are you?
+  I am good
+  Krish is my name
+  Welcome to the course
+  ```
+
+### 2. **Read a File Line by Line**
+```python
+with open('example.txt', 'r') as file:
+    for line in file:
+        print(line.strip())
+```
+- Opens the file and reads it line by line. 
+- `.strip()` removes extra newline characters at the end of each line.
+- Output (each line printed without extra spaces):
+  ```
+  Hello How are you?
+  I am good
+  Krish is my name
+  Welcome to the course
+  ```
+
+### 3. **Writing to a File (Overwriting)**
+```python
+with open('example.txt', 'w') as file:
+    file.write('Hello World!\n')
+    file.write('This is a new line.')
+```
+- Opens `example.txt` in write mode (`'w'`), which overwrites the file.
+- Writes two lines of text to the file: `Hello World!` and `This is a new line.`
+
+### 4. **Appending to a File (Without Overwriting)**
+```python
+with open('example.txt', 'a') as file:
+    file.write("Append operation taking place!\n")
+```
+- Opens the file in append mode (`'a'`) and adds `"Append operation taking place!\n"` to the end without overwriting existing content.
+
+### 5. **Writing a List of Lines to a File**
+```python
+lines = ['First line \n', 'Second line \n', 'Third line\n']
+with open('example.txt', 'a') as file:
+    file.writelines(lines)
+```
+- Appends multiple lines to the file at once using `writelines()`.
+
+### 6. **Binary Files**
+- **Writing Binary Data:**
+  ```python
+  data = b'\x00\x01\x02\x03\x04'
+  with open('example.bin', 'wb') as file:
+      file.write(data)
+  ```
+  - Writes binary data (`b'\x00\x01\x02\x03\x04'`) to a file.
+  
+- **Reading Binary Data:**
+  ```python
+  with open('example.bin', 'rb') as file:
+      content = file.read()
+      print(content)
+  ```
+  - Reads the binary data from the file and prints it.
+  - Output: `b'\x00\x01\x02\x03\x04'`
+
+### 7. **Copying Content from One File to Another**
+```python
+with open('example.txt', 'r') as source_file:
+    content = source_file.read()
+
+with open('destination.txt', 'w') as destination_file:
+    destination_file.write(content)
+```
+- Reads content from `example.txt` and writes it to `destination.txt`.
+
+### 8. **Counting Lines, Words, and Characters in a Text File**
+```python
+def count_text_file(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        line_count = len(lines)
+        word_count = sum(len(line.split()) for line in lines)
+        char_count = sum(len(line) for line in lines)
+    return line_count, word_count, char_count
+
+file_path = 'example.txt'
+lines, words, characters = count_text_file(file_path)
+print(f'Lines: {lines}, Words: {words}, Characters: {characters}')
+```
+- This function reads the file and counts the number of lines, words, and characters.
+- Example output: `Lines: 4, Words: 11, Characters: 63`
+
+### 9. **Writing and Reading a File Using `w+` Mode**
+```python
+with open('example.txt', 'w+') as file:
+    file.write("Hello world\n")
+    file.write("This is a new line \n")
+
+    file.seek(0)  # Move cursor to the start of the file
+    content = file.read()
+    print(content)
+```
+- Opens the file for both writing and reading (`'w+'` mode), writes content, then moves the cursor to the beginning using `seek(0)` to read the content back.
+- Output:
+  ```
+  Hello world
+  This is a new line
+  ```
+  ---
+### Working with File Paths
+
+Handling file paths properly ensures your code is compatible across different operating systems. Python's `os` module helps you manage file paths effectively.
+
+#### 1. **Getting the Current Working Directory**
+```python
+import os
+cwd = os.getcwd()
+print(f"Current working directory is {cwd}")
+```
+- **What It Does:** This retrieves the current working directory (the folder where your script is running) and prints it.
+
+#### 2. **Creating a New Directory**
+```python
+new_directory = "package"
+os.mkdir(new_directory)
+print(f"Directory '{new_directory}' created")
+```
+- **What It Does:** This creates a new directory named "package" in the current working directory and confirms its creation.
+
+#### 3. **Listing Files and Directories**
+```python
+items = os.listdir('.')
+print(items)
+```
+- **What It Does:** This lists all files and directories in the current directory (`.`) and prints them.
+
+#### 4. **Joining Paths**
+```python
+dir_name = "folder"
+file_name = "file.txt"
+full_path = os.path.join(dir_name, file_name)
+print(full_path)
+```
+- **What It Does:** This combines `dir_name` and `file_name` into a complete file path (e.g., `folder\file.txt`).
+
+```python
+full_path = os.path.join(os.getcwd(), dir_name, file_name)
+print(full_path)
+```
+- **What It Does:** This creates a full path by joining the current working directory with the `dir_name` and `file_name`, resulting in something like `e:\UDemy Final\python\6-File Handling\folder\file.txt`.
+
+#### 5. **Checking if a Path Exists**
+```python
+path = 'example1.txt'
+if os.path.exists(path):
+    print(f"The path '{path}' exists")
+else:
+    print(f"The path '{path}' does not exist")
+```
+- **What It Does:** This checks whether the specified path (`example1.txt`) exists and prints the result.
+
+#### 6. **Checking if a Path is a File or Directory**
+```python
+path = 'example.txt'
+if os.path.isfile(path):
+    print(f"The path '{path}' is a file.")
+elif os.path.isdir(path):
+    print(f"The path '{path}' is a directory.")
+else:
+    print(f"The path '{path}' is neither a file nor a directory.")
+```
+- **What It Does:** This checks if the given path is a file or a directory and prints the result.
+
+#### 7. **Getting the Absolute Path**
+```python
+relative_path = 'example.txt'
+absolute_path = os.path.abspath(relative_path)
+print(absolute_path)
+```
+- **What It Does:** This converts a relative path (`example.txt`) to an absolute path and prints it, providing the full path from the root of the filesystem.
+
+### Summary
+Using the `os` module, you can effectively manage file paths by getting the current working directory, creating directories, listing files, checking path existence, and getting absolute paths. This ensures your code runs smoothly across different environments.
