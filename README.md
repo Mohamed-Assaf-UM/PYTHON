@@ -2894,3 +2894,320 @@ print(filtered_people)
 - You can use **regular functions** or **lambda functions** as the filtering criteria.
 - It is useful for selecting specific elements from a collection based on certain conditions.
 ---
+## Modules in Python
+
+**Modules** and **packages** in Python help organize code into separate files and folders, making it easier to reuse and manage. When you import a module or a package, you bring in pre-written code to use in your program.
+
+---
+
+### **What is a Module?**
+A **module** is simply a Python file that contains definitions (like functions, classes, or variables) that you can use in other Python programs.
+
+### **What is a Package?**
+A **package** is a collection of modules organized in directories. Packages make it easy to manage large projects.
+
+---
+
+### **1. Basic Import**
+
+```python
+import math
+print(math.sqrt(16))  # Output: 4.0
+```
+
+- **Explanation:**  
+  The `math` module is imported, and you can now use its functions like `sqrt()` to find the square root.
+
+---
+
+### **2. Importing Specific Functions**
+
+```python
+from math import sqrt, pi
+print(sqrt(16))  # Output: 4.0
+print(sqrt(25))  # Output: 5.0
+print(pi)        # Output: 3.141592653589793
+```
+
+- **Explanation:**  
+  This imports only the `sqrt` function and `pi` constant from the `math` module. You don't need to write `math.sqrt()`, just `sqrt()`.
+
+---
+
+### **3. Importing External Libraries (like `numpy`)**
+
+```python
+import numpy as np
+arr = np.array([1, 2, 3, 4])
+print(arr)  # Output: [1 2 3 4]
+```
+
+- **Explanation:**  
+  External libraries like **NumPy** can be imported to work with specialized functions. `np` is an alias to make calling the library shorter.
+
+---
+
+### **4. Importing All Functions**
+
+```python
+from math import *
+print(sqrt(16))  # Output: 4.0
+print(pi)        # Output: 3.141592653589793
+```
+
+- **Explanation:**  
+  `from math import *` imports all the functions and constants from the `math` module, allowing you to use them directly without prefixing them with `math.`.
+
+---
+
+### **5. Importing from a Package**
+
+If you have custom modules in a package (a folder), you can import functions from them like this:
+
+```python
+from package.maths import addition
+print(addition(2, 3))  # Output: 5
+```
+
+OR
+
+```python
+from package import maths
+print(maths.addition(2, 3))  # Output: 5
+```
+
+- **Explanation:**  
+  In the first example, you import just the `addition` function from the `maths` module inside the `package`.  
+  In the second example, you import the entire `maths` module from the `package` and then call the function.
+
+---
+
+### **Adding More Topics:**
+
+#### **6. Using Aliases for Modules**
+You can give a module a short alias to make it easier to call:
+
+```python
+import math as m
+print(m.sqrt(16))  # Output: 4.0
+```
+
+- **Explanation:**  
+  This renames the `math` module as `m`, so you can use `m.sqrt()` instead of `math.sqrt()`.
+
+---
+
+#### **7. Importing Custom Modules**
+You can create your own Python file (e.g., `my_module.py`) and import it into another file.
+
+```python
+# my_module.py
+def greet(name):
+    return f"Hello, {name}!"
+
+# main.py
+import my_module
+print(my_module.greet("Assaf"))  # Output: Hello, Assaf!
+```
+
+---
+
+#### **8. Relative Imports**
+When working within a package, you can use **relative imports** to import modules that are in the same package or sub-packages.
+
+```python
+from .module import function_name
+```
+
+- **Explanation:**  
+  `.` represents the current directory, and `..` represents the parent directory. This is useful when your project has many subfolders.
+
+---
+
+### **Conclusion:**
+- **Modules** and **packages** in Python help you **organize and reuse code** effectively.
+- You can import an entire module, specific functions, or everything using `import`, `from ... import`, or `from ... import *`.
+- Using modules allows you to keep your code clean, structured, and easy to maintain.
+---
+### **Python's Standard Library Overview – Simplified**
+
+The **Python Standard Library** is a huge collection of pre-built modules and packages that provide a wide range of functionalities without requiring external libraries. These modules allow you to perform tasks like file handling, math operations, random number generation, and more, straight out of the box.
+
+---
+
+### **1. `array` Module**
+The `array` module provides a way to create an array (similar to lists but with fixed types, like all integers or all floats).
+
+```python
+import array
+arr = array.array('i', [1, 2, 3, 4])
+print(arr)
+# Output: array('i', [1, 2, 3, 4])
+```
+
+- **Explanation:**  
+  This creates an array of integers (`'i'` stands for integers) and prints it.
+
+---
+
+### **2. `math` Module**
+The `math` module contains mathematical functions like square root, constants like `pi`, etc.
+
+```python
+import math
+print(math.sqrt(16))  # Output: 4.0
+print(math.pi)        # Output: 3.141592653589793
+```
+
+- **Explanation:**  
+  `sqrt(16)` gives the square root of 16, and `pi` returns the value of Pi.
+
+---
+
+### **3. `random` Module**
+The `random` module is used for generating random numbers and making random selections.
+
+```python
+import random
+print(random.randint(1, 10))                      # Output: Random integer between 1 and 10
+print(random.choice(['apple', 'banana', 'cherry']))  # Output: Randomly selects one from the list
+```
+
+- **Explanation:**  
+  `randint(1, 10)` gives a random integer between 1 and 10, and `choice()` randomly picks one element from the given list.
+
+---
+
+### **4. File and Directory Access with `os` Module**
+The `os` module provides functions to interact with the operating system, such as accessing directories.
+
+```python
+import os
+print(os.getcwd())  # Output: Current working directory
+os.mkdir('test_dir')  # Creates a new directory named 'test_dir'
+```
+
+- **Explanation:**  
+  `os.getcwd()` gets the current directory, and `os.mkdir()` creates a new directory.
+
+---
+
+### **5. File Operations with `shutil` Module**
+The `shutil` module allows for high-level file operations like copying files.
+
+```python
+import shutil
+shutil.copyfile('source.txt', 'destination.txt')
+# Output: 'destination.txt' is created as a copy of 'source.txt'
+```
+
+- **Explanation:**  
+  This copies the content of `source.txt` into `destination.txt`.
+
+---
+
+### **6. Data Serialization with `json` Module**
+The `json` module helps convert Python objects (like dictionaries) into JSON strings and vice versa.
+
+```python
+import json
+data = {'name': 'Assaf', 'age': 21}
+
+json_str = json.dumps(data)  # Convert to JSON string
+print(json_str)              # Output: '{"name": "Assaf", "age": 21}'
+
+parsed_data = json.loads(json_str)  # Convert back to Python dict
+print(parsed_data)                  # Output: {'name': 'Assaf', 'age': 21}
+```
+
+- **Explanation:**  
+  `json.dumps()` converts a dictionary to a JSON string, and `json.loads()` converts the JSON string back to a dictionary.
+
+---
+
+### **7. Working with CSV Files**
+The `csv` module is used to read from and write to CSV (Comma Separated Values) files.
+
+```python
+import csv
+
+# Writing to a CSV file
+with open('example.csv', mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['name', 'age'])
+    writer.writerow(['Assaf', 21])
+
+# Reading from a CSV file
+with open('example.csv', mode='r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+# Output: ['name', 'age'], ['Assaf', '21']
+```
+
+- **Explanation:**  
+  This shows how to write rows to a CSV file and then read them back.
+
+---
+
+### **8. `datetime` Module**
+The `datetime` module is used for manipulating dates and times.
+
+```python
+from datetime import datetime, timedelta
+
+now = datetime.now()  # Get current date and time
+print(now)
+
+yesterday = now - timedelta(days=1)  # Subtract 1 day
+print(yesterday)
+```
+
+- **Explanation:**  
+  `datetime.now()` gives the current date and time, and `timedelta(days=1)` subtracts a day from the current date.
+
+---
+
+### **9. `time` Module**
+The `time` module allows you to work with time-related functions, like pausing the program for a few seconds.
+
+```python
+import time
+print(time.time())   # Output: Current time in seconds since epoch
+time.sleep(2)        # Pauses for 2 seconds
+print(time.time())
+```
+
+- **Explanation:**  
+  `time.time()` returns the current time in seconds, and `time.sleep()` pauses the program for the specified number of seconds.
+
+---
+
+### **10. Regular Expressions with `re` Module**
+The `re` module is used to work with regular expressions for pattern matching.
+
+```python
+import re
+
+pattern = r'\d+'  # Regular expression to find digits
+text = 'There are 123 apples 456'
+match = re.search(pattern, text)
+print(match.group())  # Output: 123
+```
+
+- **Explanation:**  
+  The pattern `\d+` looks for one or more digits, and `re.search()` finds the first match in the text.
+In the regular expression `\d+`, the `+` symbol is called a **quantifier**. It means "one or more" of the preceding element.
+
+- `\d` represents any digit (0–9).
+- `+` means "one or more of the preceding element."
+
+So, together `\d+` means "one or more digits."
+
+For example:
+- In the text "There are 123 apples 456", `\d+` would match `123` and `456` because both are sequences of digits.
+
+---
+
+### **Conclusion**
+Python's Standard Library contains a wide range of modules that make programming easier. Whether it's working with files, handling data formats like JSON and CSV, manipulating dates and times, or using advanced math and random functions, Python’s Standard Library has you covered! Understanding and using these modules helps you write efficient, clean, and powerful Python programs.
