@@ -3405,3 +3405,1339 @@ print(absolute_path)
 
 ### Summary
 Using the `os` module, you can effectively manage file paths by getting the current working directory, creating directories, listing files, checking path existence, and getting absolute paths. This ensures your code runs smoothly across different environments.
+
+---
+---
+## Exception Handling:
+### What Are Exceptions?
+Exceptions are errors that occur during the execution of a program and disrupt its flow. Instead of the program crashing, Python provides a way to handle these exceptions gracefully.
+
+### Try and Except Block
+This block helps catch exceptions that occur in the `try` part of the code. If an exception happens, the `except` block is executed.
+
+#### Example:
+```python
+try:
+    a = b
+except:
+    print("The variable has not been assigned")
+```
+In this case, a `NameError` occurs because `b` is not defined. Without the `except` block, this would cause the program to crash, but with the block, the error is caught, and the message is printed.
+
+#### Improved Version:
+You can catch specific exceptions by naming them:
+```python
+try:
+    a = b
+except NameError as ex:
+    print(ex)
+```
+This way, it specifically catches a `NameError` and prints the exact error message.
+
+### Catching Multiple Exceptions
+You can handle different types of exceptions with multiple `except` blocks.
+```python
+try:
+    result = 1 / num
+    a = b
+except ZeroDivisionError as ex:
+    print(ex)
+    print("Please enter a denominator greater than 0")
+except Exception as ex1:
+    print(ex1)
+    print("Main exception got caught here")
+```
+Here, if `num` is zero, the `ZeroDivisionError` is caught. If there's any other error (like `b` not being defined), it's caught by the general `Exception` block.
+
+### Try, Except, and Else Block
+The `else` block runs only if no exceptions are raised.
+```python
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+except ValueError:
+    print("That's not a valid number!")
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+else:
+    print(f"The result is {result}")
+```
+If no exception occurs, the code in the `else` block runs, which prints the result.
+
+### Finally Block
+The `finally` block runs no matter what happens (whether an exception is raised or not). It’s typically used for cleanup actions, like closing a file or releasing resources.
+```python
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+except ValueError:
+    print("That's not a valid number!")
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+else:
+    print(f"The result is {result}")
+finally:
+    print("Execution complete.")
+```
+Even if an error occurs, the message "Execution complete" is always printed.
+
+### Exception Handling in File Operations
+When dealing with files, exceptions like `FileNotFoundError` are common, and it's important to close the file whether an exception occurs or not.
+```python
+try:
+    file = open('example1.txt', 'r')
+    content = file.read()
+    a = b  # This will raise an exception
+    print(content)
+except FileNotFoundError:
+    print("The file does not exist")
+except Exception as ex:
+    print(ex)
+finally:
+    if 'file' in locals() or not file.closed:
+        file.close()
+        print('File closed')
+```
+The `finally` block ensures the file is closed even if an error occurs while reading the file or if some other error like `NameError` is raised.
+
+### Missing Piece: Raising Exceptions
+You can also manually raise exceptions in your code using the `raise` keyword. This can be helpful if you want to ensure certain conditions are met.
+```python
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("b cannot be zero!")
+    return a / b
+```
+
+This covers all the important parts of exception handling:
+1. `try` and `except` blocks for catching exceptions.
+2. Specific exceptions like `ZeroDivisionError`, `NameError`, etc.
+3. `else` block for code to execute when no exception occurs.
+4. `finally` block for cleanup, no matter what happens.
+5. Raising exceptions manually.
+
+This should give you a complete picture of how to handle exceptions in Python.
+### raise :
+ When you use `raise` to manually raise an exception, it stops the program and throws the error, just like a built-in exception would. This is because the purpose of `raise` is to signal that an exceptional condition has occurred and should be handled.
+
+To handle this error without stopping the program, you need to wrap the call to `divide()` in a `try` block, and catch the `ZeroDivisionError` in an `except` block.
+
+Here’s how you can do it:
+
+```python
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("b cannot be zero!")
+    return a / b
+
+try:
+    print(divide(5, 0))
+except ZeroDivisionError as ex:
+    print(ex)
+```
+
+### Output:
+```
+b cannot be zero!
+```
+
+Now, instead of the program crashing, the exception is caught, and the message `"b cannot be zero!"` is printed.
+
+In summary:
+- Without `try-except`, the program stops when an exception is raised.
+- With `try-except`, you can handle the exception and continue running the program.
+### Pass:
+In Python, the `pass` statement is used as a placeholder in code where a statement is syntactically required, but no action needs to be taken. It allows you to define functions, loops, classes, or conditionals without adding any functionality at that moment.
+
+### Why and When to Use `pass`:
+1. **As a Placeholder for Incomplete Code**:
+   When you're working on a project and want to structure your code without implementing all the details yet, you can use `pass` to avoid syntax errors. It helps you write the skeleton of your code while focusing on other parts.
+
+   Example:
+   ```python
+   def my_function():
+       pass  # Placeholder until you implement the function
+   ```
+
+2. **In Empty Classes**:
+   If you want to define a class but don’t want to add attributes or methods at the moment, you can use `pass`.
+
+   Example:
+   ```python
+   class Car:
+       pass  # Placeholder for later implementation
+   ```
+
+3. **In Empty Loops**:
+   If you’re creating a loop, but you don’t want it to do anything for now, you can use `pass` to avoid errors.
+
+   Example:
+   ```python
+   for i in range(5):
+       pass  # Do nothing for now
+   ```
+
+4. **In Conditionals**:
+   If you're writing an `if` statement and don’t need to take any action when the condition is met (or not met), `pass` allows you to skip adding functionality without breaking the code.
+
+   Example:
+   ```python
+   x = 10
+   if x > 5:
+       pass  # No action needed if x > 5
+   else:
+       print("x is less than or equal to 5")
+   ```
+
+### Why Not Just Leave It Blank?
+In Python, leaving certain blocks (like class definitions or function bodies) empty will cause a syntax error. The `pass` statement tells Python, “Do nothing here, but this block is intentionally left empty,” preventing the error.
+
+### Summary:
+- **Purpose**: The `pass` statement is used when you need to define the structure of your code but haven't implemented it yet.
+- **When to use**: In empty classes, functions, loops, conditionals, or any block where you plan to add functionality later.
+
+---
+## Class and Object:
+## **Classes and Objects in Python**
+
+Object-Oriented Programming (OOP) is a programming paradigm that uses classes and objects to design applications and represent real-world scenarios. In Python, a **class** is a blueprint for creating objects, and an **object** is an instance of that class.
+
+### **1. What is a Class?**
+A class defines the structure and behavior (data and methods) that its objects will have. Classes typically contain:
+- **Attributes**: Variables that hold data related to the object (instance variables).
+- **Methods**: Functions that define the behavior of the object.
+
+Example:
+```python
+class Car:
+    pass  # A class with no attributes or methods for now
+```
+
+In this example, `Car` is a class with no functionality yet (we use `pass` as a placeholder when we haven't implemented any logic).
+
+### **2. What is `pass` in Python?**
+`pass` is a special statement used in Python when a statement is syntactically required but no action is needed. It is useful when you're defining classes, functions, or loops but don't want to implement their logic just yet.
+
+Example:
+```python
+class Car:
+    pass  # Placeholder for future attributes and methods
+```
+
+### **3. Creating Objects from a Class**
+Objects are instances of a class. You create an object by calling the class as if it were a function.
+
+Example:
+```python
+audi = Car()  # Creating an object of class Car
+bmw = Car()
+
+print(type(audi))  # Output: <class '__main__.Car'>
+```
+
+Here, `audi` and `bmw` are two different objects (instances) of the `Car` class.
+
+### **4. Instance Variables and Methods**
+Instance variables are data unique to each object, and methods are functions that belong to the class. 
+
+#### **4.1 Constructor and Instance Variables**
+A **constructor** (`__init__`) is a special method that initializes the object with attributes. It is automatically called when an object is created.
+
+Example:
+```python
+class Dog:
+    def __init__(self, name, age):
+        self.name = name  # Instance variable
+        self.age = age    # Instance variable
+
+# Creating objects
+dog1 = Dog("Buddy", 3)
+dog2 = Dog("Lucy", 4)
+
+print(dog1.name)  # Output: Buddy
+print(dog2.age)   # Output: 4
+```
+
+#### **4.2 What is `self`?**
+`self` is a reference to the current instance of the class. It is used to access the instance variables and methods of the object. It must be the first parameter of instance methods, but it is not passed when the method is called — Python does this automatically.
+
+Example:
+```python
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        print(f"{self.name} says woof!")  # Accessing instance variable using self
+
+dog1 = Dog("Buddy", 3)
+dog1.bark()  # Output: Buddy says woof!
+```
+
+Here, `self.name` refers to the specific instance (`dog1`), allowing the method to access the `name` attribute of that object. `self` enables each object to keep track of its own data.
+
+### **5. Defining Instance Methods**
+Instance methods operate on data contained within an object and typically have `self` as their first parameter.
+
+Example:
+```python
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def bark(self):
+        print(f"{self.name} says woof!")
+
+dog1 = Dog("Buddy", 3)
+dog1.bark()  # Output: Buddy says woof!
+```
+
+### **6. Example: Modeling a Bank Account**
+
+Here’s a practical example of how classes, objects, and methods can model real-world scenarios like a bank account:
+
+```python
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"{amount} is deposited. New balance is {self.balance}")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient funds!")
+        else:
+            self.balance -= amount
+            print(f"{amount} is withdrawn. New Balance is {self.balance}")
+
+    def get_balance(self):
+        return self.balance
+    
+# Create an account object
+account = BankAccount("Mohamed Assaf", 5000)
+account.deposit(100)  # Output: 100 is deposited. New balance is 5100
+account.withdraw(300)  # Output: 300 is withdrawn. New Balance is 4800
+```
+
+### **7. Error: Attribute Not Found**
+When accessing instance variables, if you try to access an attribute that wasn’t assigned to an object, Python raises an `AttributeError`.
+
+Example:
+```python
+tata = Car()
+tata.doors = 4
+print(tata.windows)  # This will raise an AttributeError since `windows` was never defined for `tata`.
+```
+
+### **Conclusion**
+Object-Oriented Programming in Python allows you to model real-world entities using classes and objects. In this lesson, we covered:
+- Creating classes and objects.
+- Using `self` to refer to the current instance.
+- Defining and using instance variables and methods.
+- Handling real-world scenarios using OOP principles.
+
+By understanding these concepts, you can write more organized, reusable, and maintainable Python code!
+
+--- 
+### **Inheritance in Python**
+
+Inheritance is a key concept in Object-Oriented Programming (OOP) that allows a class to inherit attributes and methods from another class. This enables code reuse, modular design, and allows us to build complex systems based on simpler ones. In Python, there are two main types of inheritance:
+1. **Single Inheritance**: One class inherits from one parent class.
+2. **Multiple Inheritance**: A class can inherit from more than one base class.
+
+This explanation will cover both **single inheritance** and **multiple inheritance**, using the code you provided and expanding on missing topics.
+
+---
+
+### **1. Single Inheritance**
+
+In **single inheritance**, a child class (also called a derived class or subclass) inherits from a single parent class (also called a base class). This allows the child class to reuse the attributes and methods of the parent class.
+
+#### **Example:**
+
+```python
+## Parent class
+class Car:
+    def __init__(self, windows, doors, enginetype):
+        self.windows = windows
+        self.doors = doors
+        self.enginetype = enginetype
+    
+    def drive(self):
+        print(f"The person will drive the {self.enginetype} car.")
+
+# Creating an object of the parent class
+car1 = Car(4, 5, "petrol")
+car1.drive()  # Output: The person will drive the petrol car.
+```
+
+Here, the `Car` class is the parent class, which has attributes like `windows`, `doors`, and `enginetype`, and a method `drive()`.
+
+#### **Child Class Inheriting from Parent Class:**
+
+```python
+class Tesla(Car):  # Tesla is the child class inheriting from Car
+    def __init__(self, windows, doors, enginetype, is_selfdriving):
+        super().__init__(windows, doors, enginetype)  # Inherit attributes from parent class
+        self.is_selfdriving = is_selfdriving  # Add a new attribute specific to Tesla
+
+    def selfdriving(self):
+        print(f"Tesla supports self-driving: {self.is_selfdriving}")
+
+# Creating an object of the child class
+tesla1 = Tesla(4, 5, "electric", True)
+tesla1.selfdriving()  # Output: Tesla supports self-driving: True
+tesla1.drive()        # Output: The person will drive the electric car.
+```
+
+#### **Explanation:**
+- **Parent Class (`Car`)**: This class contains common attributes and methods that all cars should have (like `windows`, `doors`, `enginetype`, and `drive()`).
+- **Child Class (`Tesla`)**: This class inherits from `Car` using `super().__init__()` to reuse the `windows`, `doors`, and `enginetype` attributes. Additionally, `Tesla` adds a new attribute `is_selfdriving` and a method `selfdriving()` specific to Tesla cars.
+- `super()` is used to call the parent class's constructor and initialize the inherited attributes.
+
+### **2. Multiple Inheritance**
+
+In **multiple inheritance**, a class can inherit attributes and methods from more than one parent class. This allows a child class to combine functionality from multiple sources.
+
+#### **Example:**
+
+```python
+## Base class 1
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        print("Subclass must implement this method")
+
+## Base class 2
+class Pet:
+    def __init__(self, owner):
+        self.owner = owner
+
+## Derived class inheriting from both Animal and Pet
+class Dog(Animal, Pet):
+    def __init__(self, name, owner):
+        Animal.__init__(self, name)  # Initialize the Animal class
+        Pet.__init__(self, owner)    # Initialize the Pet class
+
+    def speak(self):
+        return f"{self.name} says woof!"
+
+# Create an object of the derived class
+dog = Dog("Buddy", "Krish")
+print(dog.speak())          # Output: Buddy says woof!
+print(f"Owner: {dog.owner}")  # Output: Owner: Krish
+```
+
+#### **Explanation:**
+- **Parent Classes (`Animal`, `Pet`)**: `Animal` has the attribute `name`, and `Pet` has the attribute `owner`. Both classes can provide useful behaviors and attributes.
+- **Child Class (`Dog`)**: This class inherits from both `Animal` and `Pet` using multiple inheritance. It combines the attributes from both parent classes (`name` and `owner`). In the `__init__` method, we explicitly call the constructors of both `Animal` and `Pet` using `Animal.__init__()` and `Pet.__init__()` to initialize their respective attributes.
+
+### **Key Concepts in Inheritance:**
+
+#### **1. Method Overriding:**
+A subclass can **override** a method from its parent class if it needs to provide a specific implementation. This happens when the child class defines a method with the same name as one in the parent class.
+
+Example:
+```python
+class Animal:
+    def speak(self):
+        return "Animal sound"
+
+class Dog(Animal):
+    def speak(self):  # Method overriding
+        return "Woof!"
+
+dog = Dog()
+print(dog.speak())  # Output: Woof!
+```
+In this example, `Dog` overrides the `speak()` method of the `Animal` class to provide a more specific implementation for dogs.
+
+#### **2. `super()` in Python:**
+The `super()` function allows you to call methods from the parent class. It is typically used in the child class to access the parent class's methods and attributes.
+
+Example:
+```python
+class Parent:
+    def __init__(self):
+        print("Parent class constructor")
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()  # Call the parent class constructor
+        print("Child class constructor")
+
+child = Child()
+# Output:
+# Parent class constructor
+# Child class constructor
+```
+`super()` is particularly useful when a child class needs to modify or extend the behavior of the parent class.
+
+#### **3. The `isinstance()` and `issubclass()` Functions:**
+- `isinstance(object, class)`: Checks if an object is an instance of a class or a subclass of it.
+- `issubclass(class1, class2)`: Checks if `class1` is a subclass of `class2`.
+
+Example:
+```python
+print(isinstance(dog, Dog))  # Output: True
+print(issubclass(Dog, Animal))  # Output: True
+```
+
+### **Conclusion:**
+Inheritance in Python allows for the creation of hierarchical class structures, promoting code reuse and reducing redundancy. It simplifies complex programs by enabling the reuse of shared logic, making them easier to maintain and extend.
+
+- **Single Inheritance**: One class inherits from another.
+- **Multiple Inheritance**: A class can inherit from multiple parent classes.
+- **Method Overriding**: A child class can override methods from its parent.
+- **`super()`**: Used to access parent class methods and attributes from a child class.
+
+By using inheritance effectively, you can create well-organized, maintainable, and scalable programs.
+### **Polymorphism in Python**
+
+Polymorphism is an essential concept in Object-Oriented Programming (OOP) that allows objects of different classes to be treated as objects of a common superclass. This flexibility enables a single function or method to behave differently based on the type of object it is interacting with. Polymorphism can be achieved through:
+- **Method Overriding**: When a subclass provides a specific implementation of a method that is already defined in its superclass.
+- **Abstract Base Classes**: These enforce that derived classes implement specific methods, ensuring consistency across different implementations.
+
+---
+
+### **1. Polymorphism through Method Overriding**
+
+Method overriding occurs when a child class provides a specific implementation of a method that already exists in its parent class. This allows each subclass to define its own behavior while keeping the same method name.
+
+#### **Example:**
+
+```python
+## Base Class
+class Animal:
+    def speak(self):
+        return "Sound of the animal"
+    
+## Derived Class 1
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+    
+## Derived Class 2
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+    
+## Function that demonstrates polymorphism
+def animal_speak(animal):
+    print(animal.speak())
+    
+# Create objects of Dog and Cat
+dog = Dog()
+cat = Cat()
+
+# Call methods individually
+print(dog.speak())  # Output: Woof!
+print(cat.speak())  # Output: Meow!
+
+# Use polymorphism in a function
+animal_speak(dog)  # Output: Woof!
+animal_speak(cat)  # Output: Meow!
+```
+
+#### **Explanation:**
+- `Dog` and `Cat` classes both override the `speak()` method of the `Animal` class.
+- Even though the `animal_speak()` function only knows about the `Animal` type, it can call the `speak()` method on both `Dog` and `Cat` objects, allowing each object to respond in its own way.
+
+---
+
+### **2. Polymorphism with Functions and Methods**
+
+Polymorphism is not limited to just method overriding. It can also be demonstrated through functions and methods, where different classes implement their own versions of a method that performs a similar function.
+
+#### **Example:**
+
+```python
+## Base class
+class Shape:
+    def area(self):
+        return "The area of the figure"
+    
+## Derived class 1
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+    
+## Derived class 2
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14 * self.radius * self.radius
+    
+## Function that demonstrates polymorphism
+def print_area(shape):
+    print(f"The area is {shape.area()}")
+
+# Create objects of Rectangle and Circle
+rectangle = Rectangle(4, 5)
+circle = Circle(3)
+
+# Use polymorphism to call the same method on different shapes
+print_area(rectangle)  # Output: The area is 20
+print_area(circle)     # Output: The area is 28.26
+```
+
+#### **Explanation:**
+- Both `Rectangle` and `Circle` classes have their own implementation of the `area()` method.
+- The `print_area()` function can take any shape (either `Rectangle` or `Circle`) and call the appropriate `area()` method based on the object passed.
+
+---
+
+### **3. Polymorphism with Abstract Base Classes**
+
+Polymorphism can also be enforced using **Abstract Base Classes (ABCs)**. These are classes that define abstract methods that must be implemented by all derived classes. This ensures that each derived class implements the necessary methods in its own way, while still maintaining consistency.
+
+#### **Example:**
+
+```python
+from abc import ABC, abstractmethod
+
+## Define an abstract class
+class Vehicle(ABC):
+    @abstractmethod
+    def start_engine(self):
+        pass
+
+## Derived class 1
+class Car(Vehicle):
+    def start_engine(self):
+        return "Car engine started"
+    
+## Derived class 2
+class Motorcycle(Vehicle):
+    def start_engine(self):
+        return "Motorcycle engine started"
+    
+# Function that demonstrates polymorphism
+def start_vehicle(vehicle):
+    print(vehicle.start_engine())
+
+# Create objects of Car and Motorcycle
+car = Car()
+motorcycle = Motorcycle()
+
+# Use polymorphism to call the same method on different vehicles
+start_vehicle(car)        # Output: Car engine started
+start_vehicle(motorcycle)  # Output: Motorcycle engine started
+```
+
+#### **Explanation:**
+- `Vehicle` is an abstract class that defines the abstract method `start_engine()`. This method must be implemented by all subclasses (like `Car` and `Motorcycle`).
+- Polymorphism allows the `start_vehicle()` function to call the `start_engine()` method on both `Car` and `Motorcycle` objects, even though they implement the method differently.
+
+---
+
+### **Key Concepts in Polymorphism:**
+
+#### **1. Method Overriding:**
+Method overriding allows subclasses to provide their own implementation of a method that is already defined in the parent class. This enables polymorphic behavior, where the same method call behaves differently based on the object that is invoking it.
+
+#### **2. Abstract Base Classes (ABC):**
+Abstract Base Classes are used to define common methods for a group of related classes. ABCs enforce that derived classes implement specific methods, ensuring a consistent interface across different subclasses.
+
+#### **3. `isinstance()` in Polymorphism:**
+The `isinstance()` function can be used to check whether an object is an instance of a specific class, which is helpful when working with polymorphic behavior.
+
+Example:
+```python
+print(isinstance(dog, Animal))  # Output: True
+print(isinstance(circle, Shape))  # Output: True
+```
+
+### **Conclusion:**
+Polymorphism is a powerful feature of OOP that allows for flexibility and code reuse. It enables a single function to handle objects of different classes, each with its own implementation of a method. By using polymorphism, you can create more extensible and maintainable programs that adapt to new requirements without requiring significant changes to existing code.
+In Python, **`ABC` (Abstract Base Class)** and **`abstractmethod`** are part of the `abc` module and are used to define abstract classes and methods. Abstract classes serve as blueprints for other classes. Here's a breakdown of why and when to use them:
+
+### **Why Use `ABC` and `abstractmethod`?**
+
+1. **Enforcing Structure**:
+   - Abstract classes allow you to define a **common structure** for a group of related classes. You can specify that certain methods **must be implemented** in any class that inherits from the abstract class.
+   - For example, if you have a `Vehicle` abstract class, you want every subclass (like `Car` or `Motorcycle`) to have a `start_engine()` method. Using `abstractmethod` ensures that every subclass provides its own implementation of this method.
+
+2. **Preventing Instantiation of Abstract Classes**:
+   - You cannot create an instance of an abstract class directly. This prevents incomplete or inappropriate use of a class meant to serve as a template for other classes.
+   - For example, creating a `Vehicle` object doesn't make sense if it doesn't have a working `start_engine()` method. With `abstractmethod`, Python will raise an error if someone tries to instantiate an abstract class.
+
+3. **Providing Consistent Interfaces**:
+   - By defining abstract methods, you ensure that every subclass follows the same interface or "contract." This is particularly useful in large codebases where consistency and adherence to design patterns are important.
+
+### **How `ABC` and `abstractmethod` Work**
+
+- **`ABC`**: A class inherits from `ABC` when you want it to be treated as an abstract base class.
+- **`abstractmethod`**: This decorator marks methods that **must** be implemented in any subclass.
+
+### **Example:**
+
+```python
+from abc import ABC, abstractmethod
+
+# Define an abstract base class
+class Vehicle(ABC):
+    @abstractmethod
+    def start_engine(self):
+        pass  # This is an abstract method, no implementation here
+
+# Derived class 1: Car must implement start_engine
+class Car(Vehicle):
+    def start_engine(self):
+        return "Car engine started"
+
+# Derived class 2: Motorcycle must also implement start_engine
+class Motorcycle(Vehicle):
+    def start_engine(self):
+        return "Motorcycle engine started"
+
+# Function to demonstrate polymorphism
+def start_vehicle(vehicle):
+    print(vehicle.start_engine())
+
+# Creating objects of Car and Motorcycle
+car = Car()
+motorcycle = Motorcycle()
+
+start_vehicle(car)          # Output: Car engine started
+start_vehicle(motorcycle)   # Output: Motorcycle engine started
+```
+
+#### **Explanation:**
+1. `Vehicle(ABC)` is the abstract base class, meaning it defines a template for other vehicle types.
+2. The `@abstractmethod` decorator on `start_engine()` ensures that any class that inherits from `Vehicle` **must implement this method**.
+3. The `Car` and `Motorcycle` classes inherit from `Vehicle` and **must provide their own implementation** of `start_engine()` to become concrete classes.
+4. If you try to instantiate `Vehicle` directly without defining `start_engine()`, Python will raise an error.
+
+### **What Happens if You Don’t Implement the Abstract Method?**
+
+If a subclass fails to implement the abstract method, Python will throw a `TypeError` when you try to create an instance of the subclass.
+
+#### Example:
+
+```python
+class Truck(Vehicle):
+    pass  # No start_engine method implemented
+
+# This will raise a TypeError
+truck = Truck()  # Error: Can't instantiate abstract class Truck with abstract method start_engine
+```
+
+### **Conclusion:**
+- `ABC` and `abstractmethod` are used to **define abstract base classes** in Python.
+- They allow you to create **blueprints** for other classes and ensure that all subclasses implement specific methods.
+- This enforces a **consistent interface** across different types of classes, making your code more organized and maintainable.
+Sure! Here's the explanation of Encapsulation and Abstraction, with your name and age updated accordingly:
+
+---
+
+### Encapsulation and Abstraction
+
+**Encapsulation** and **Abstraction** are two fundamental principles of Object-Oriented Programming (OOP) that help in designing robust, maintainable, and reusable code. 
+
+- **Encapsulation** involves bundling data and methods that operate on the data within a single unit (class). It restricts direct access to some of the object's components, preventing accidental interference and misuse of the data.
+
+- **Abstraction** involves hiding complex implementation details and exposing only the necessary features of an object. This simplifies interactions with the object and reduces complexity.
+
+### Encapsulation with Getter and Setter Methods
+
+Encapsulation is implemented using access modifiers, which control the visibility of class members (attributes and methods). 
+
+- **Public Variables**: Accessible from anywhere.
+- **Protected Variables**: Indicated by a single underscore (`_`), meant for internal use and inherited classes.
+- **Private Variables**: Indicated by double underscores (`__`), inaccessible from outside the class.
+
+### Example of Encapsulation
+
+#### Public Variables
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name    # public variable
+        self.age = age      # public variable
+
+def get_name(person):
+    return person.name
+
+person = Person("Assaf", 21)
+print(get_name(person))  # Output: Assaf
+```
+
+#### Private Variables
+
+```python
+class Person:
+    def __init__(self, name, age, gender):
+        self.__name = name    # private variable
+        self.__age = age      # private variable
+        self.gender = gender
+
+def get_name(person):
+    return person.__name  # This will cause an AttributeError
+
+person = Person("Assaf", 21, "Male")
+# print(get_name(person))  # Uncommenting this will raise an error
+```
+
+In the above example, trying to access `__name` outside the class will result in an `AttributeError` because it's private.
+
+#### Protected Variables
+
+```python
+class Person:
+    def __init__(self, name, age, gender):
+        self._name = name    # protected variable
+        self._age = age      # protected variable
+        self.gender = gender
+
+class Employee(Person):
+    def __init__(self, name, age, gender):
+        super().__init__(name, age, gender)
+
+employee = Employee("Assaf", 21, "Male")
+print(employee._name)  # Output: Assaf
+```
+
+### Encapsulation with Getter and Setter Methods
+
+Encapsulation can also be achieved through getter and setter methods, which provide controlled access to private variables.
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.__name = name  # Private variable
+        self.__age = age    # Private variable
+
+    # Getter method for name
+    def get_name(self):
+        return self.__name
+    
+    # Setter method for name
+    def set_name(self, name):
+        self.__name = name
+
+    # Getter method for age
+    def get_age(self):
+        return self.__age
+    
+    # Setter method for age
+    def set_age(self, age):
+        if age > 0:
+            self.__age = age
+        else:
+            print("Age cannot be negative.")
+
+person = Person("Assaf", 21)
+
+# Access and modify private variables using getter and setter
+print(person.get_name())  # Output: Assaf
+print(person.get_age())   # Output: 21
+
+person.set_age(22)
+print(person.get_age())   # Output: 22
+
+person.set_age(-5)        # Output: Age cannot be negative.
+```
+
+### Conclusion
+
+Encapsulation and abstraction are essential for building robust applications. By restricting access to the inner workings of objects and exposing only necessary functionalities, you can create a clear interface and improve the maintainability of your code. Encapsulation ensures that the data is protected from unauthorized access and modification, while abstraction allows you to focus on what an object does rather than how it does it.
+
+--- 
+
+### Encapsulation and Abstraction
+
+**Encapsulation** and **Abstraction** are two fundamental principles of Object-Oriented Programming (OOP) that help in designing robust, maintainable, and reusable code. 
+
+- **Encapsulation** involves bundling data and methods that operate on the data within a single unit (class). It restricts direct access to some of the object's components, preventing accidental interference and misuse of the data.
+
+- **Abstraction** involves hiding complex implementation details and exposing only the necessary features of an object. This simplifies interactions with the object and reduces complexity.
+
+### Encapsulation with Getter and Setter Methods
+
+Encapsulation is implemented using access modifiers, which control the visibility of class members (attributes and methods). 
+
+- **Public Variables**: Accessible from anywhere.
+- **Protected Variables**: Indicated by a single underscore (`_`), meant for internal use and inherited classes.
+- **Private Variables**: Indicated by double underscores (`__`), inaccessible from outside the class.
+
+### Example of Encapsulation
+
+#### Public Variables
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name    # public variable
+        self.age = age      # public variable
+
+def get_name(person):
+    return person.name
+
+person = Person("Assaf", 21)
+print(get_name(person))  # Output: Assaf
+```
+
+#### Private Variables
+
+```python
+class Person:
+    def __init__(self, name, age, gender):
+        self.__name = name    # private variable
+        self.__age = age      # private variable
+        self.gender = gender
+
+def get_name(person):
+    return person.__name  # This will cause an AttributeError
+
+person = Person("Assaf", 21, "Male")
+# print(get_name(person))  # Uncommenting this will raise an error
+```
+
+In the above example, trying to access `__name` outside the class will result in an `AttributeError` because it's private.
+
+#### Protected Variables
+
+```python
+class Person:
+    def __init__(self, name, age, gender):
+        self._name = name    # protected variable
+        self._age = age      # protected variable
+        self.gender = gender
+
+class Employee(Person):
+    def __init__(self, name, age, gender):
+        super().__init__(name, age, gender)
+
+employee = Employee("Assaf", 21, "Male")
+print(employee._name)  # Output: Assaf
+```
+
+### Encapsulation with Getter and Setter Methods
+
+Encapsulation can also be achieved through getter and setter methods, which provide controlled access to private variables.
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.__name = name  # Private variable
+        self.__age = age    # Private variable
+
+    # Getter method for name
+    def get_name(self):
+        return self.__name
+    
+    # Setter method for name
+    def set_name(self, name):
+        self.__name = name
+
+    # Getter method for age
+    def get_age(self):
+        return self.__age
+    
+    # Setter method for age
+    def set_age(self, age):
+        if age > 0:
+            self.__age = age
+        else:
+            print("Age cannot be negative.")
+
+person = Person("Assaf", 21)
+
+# Access and modify private variables using getter and setter
+print(person.get_name())  # Output: Assaf
+print(person.get_age())   # Output: 21
+
+person.set_age(22)
+print(person.get_age())   # Output: 22
+
+person.set_age(-5)        # Output: Age cannot be negative.
+```
+
+### Conclusion
+
+Encapsulation and abstraction are essential for building robust applications. By restricting access to the inner workings of objects and exposing only necessary functionalities, you can create a clear interface and improve the maintainability of your code. Encapsulation ensures that the data is protected from unauthorized access and modification, while abstraction allows you to focus on what an object does rather than how it does it.
+
+--- 
+
+## Abstraction
+
+Abstraction is a fundamental concept in Object-Oriented Programming (OOP) that focuses on hiding the complex implementation details of a system and exposing only the necessary features to the user. This simplifies the interaction with complex systems by allowing users to use objects without needing to understand the underlying complexities.
+
+### Benefits of Abstraction
+- **Reduces Complexity**: Users can interact with objects without needing to know the internal workings.
+- **Improves Code Maintainability**: Changes in implementation details do not affect the code that uses the abstracted objects.
+- **Encourages Code Reusability**: Abstract classes can be extended to create specific implementations without rewriting common functionality.
+
+### Implementing Abstraction in Python
+
+In Python, abstraction can be achieved using **Abstract Base Classes (ABCs)**, which are defined in the `abc` module. An abstract class can contain both implemented methods (concrete methods) and methods that are declared but not implemented (abstract methods).
+
+### Code Example
+
+Let's break down the code you provided:
+
+```python
+from abc import ABC, abstractmethod
+
+## Abstract base class
+class Vehicle(ABC):
+    def drive(self):
+        print("The vehicle is used for driving")
+
+    @abstractmethod
+    def start_engine(self):
+        pass
+
+class Car(Vehicle):
+    def start_engine(self):
+        print("Car engine started")
+
+def operate_vehicle(vehicle):
+    vehicle.start_engine()
+    vehicle.drive()
+
+car = Car()
+operate_vehicle(car)
+```
+
+#### Code Breakdown
+
+1. **Importing the ABC Module**:
+   ```python
+   from abc import ABC, abstractmethod
+   ```
+   This imports the `ABC` class and the `abstractmethod` decorator, which are used to define abstract base classes.
+
+2. **Defining an Abstract Base Class**:
+   ```python
+   class Vehicle(ABC):
+   ```
+   - `Vehicle` is defined as an abstract base class by inheriting from `ABC`.
+   - It can contain regular methods (like `drive`) as well as abstract methods (like `start_engine`).
+
+3. **Concrete Method**:
+   ```python
+   def drive(self):
+       print("The vehicle is used for driving")
+   ```
+   - This method provides a concrete implementation that can be used by subclasses.
+
+4. **Abstract Method**:
+   ```python
+   @abstractmethod
+   def start_engine(self):
+       pass
+   ```
+   - The `start_engine` method is decorated with `@abstractmethod`, indicating that any subclass must implement this method. If a subclass does not implement all abstract methods, it cannot be instantiated.
+
+5. **Defining a Subclass**:
+   ```python
+   class Car(Vehicle):
+       def start_engine(self):
+           print("Car engine started")
+   ```
+   - The `Car` class inherits from the `Vehicle` class and provides an implementation for the `start_engine` method.
+
+6. **Function to Operate a Vehicle**:
+   ```python
+   def operate_vehicle(vehicle):
+       vehicle.start_engine()
+       vehicle.drive()
+   ```
+   - This function takes a `vehicle` object (which can be any subclass of `Vehicle`) and calls its methods. This demonstrates polymorphism as `operate_vehicle` can accept any object derived from `Vehicle`.
+
+7. **Creating an Object and Using the Function**:
+   ```python
+   car = Car()
+   operate_vehicle(car)
+   ```
+   - Here, an instance of `Car` is created, and `operate_vehicle` is called with this instance. The output will be:
+   ```
+   Car engine started
+   The vehicle is used for driving
+   ```
+
+### Conclusion
+
+Abstraction allows developers to work with objects at a higher level without needing to understand the complex details of their implementation. By using abstract classes and methods, you can create a clean, understandable interface while hiding the complexities of the implementation. This promotes better software design and enhances code maintainability.
+
+---
+## Magic Methods:
+
+**magic methods** in Python, also known as **dunder methods** (short for "double underscore methods"), with a detailed explanation and real-time examples.
+
+### What are Magic Methods?
+
+Magic methods are special methods in Python that allow you to define the behavior of your objects in specific situations. They are always defined with two underscores before and after their name, hence the name "dunder" methods. 
+
+These methods enable you to customize how your objects behave with built-in Python operations like addition, string representation, and more.
+
+### Common Magic Methods
+
+Here are some common magic methods along with simple explanations and examples:
+
+1. **`__init__`**: This is the constructor method that initializes a new object. It’s called automatically when a new object of a class is created.
+
+   **Example:**
+   ```python
+   class Person:
+       def __init__(self, name, age):
+           self.name = name
+           self.age = age
+
+   person1 = Person("Assaf", 21)
+   print(person1.name)  # Output: Assaf
+   print(person1.age)   # Output: 21
+   ```
+
+   In this example, when you create `person1`, the `__init__` method initializes the `name` and `age` attributes.
+
+2. **`__str__`**: This method returns a string representation of an object, which is user-friendly.
+
+   **Example:**
+   ```python
+   class Person:
+       def __init__(self, name, age):
+           self.name = name
+           self.age = age
+
+       def __str__(self):
+           return f"{self.name}, {self.age} years old"
+
+   person1 = Person("Assaf", 21)
+   print(person1)  # Output: Assaf, 21 years old
+   ```
+
+   Here, when you use `print(person1)`, Python automatically calls the `__str__` method to get the string representation.
+
+3. **`__repr__`**: This method returns an "official" string representation of an object, often useful for debugging. It should ideally return a valid Python expression that could be used to recreate the object.
+
+   **Example:**
+   ```python
+   class Person:
+       def __init__(self, name, age):
+           self.name = name
+           self.age = age
+
+       def __repr__(self):
+           return f"Person(name={self.name}, age={self.age})"
+
+   person1 = Person("Assaf", 21)
+   print(repr(person1))  # Output: Person(name=Assaf, age=21)
+   ```
+
+   The `__repr__` method provides a more detailed string representation of the object, which is useful for developers.
+
+4. **`__len__`**: This method returns the length of the object when you use the built-in `len()` function.
+
+   **Example:**
+   ```python
+   class Group:
+       def __init__(self, members):
+           self.members = members
+
+       def __len__(self):
+           return len(self.members)
+
+   group = Group(["Assaf", "Alice", "Bob"])
+   print(len(group))  # Output: 3
+   ```
+
+   Here, the `__len__` method allows you to use `len(group)` to get the number of members in the group.
+
+5. **`__getitem__`** and **`__setitem__`**: These methods allow you to access and set items using indexing.
+
+   **Example:**
+   ```python
+   class ShoppingCart:
+       def __init__(self):
+           self.items = []
+
+       def __getitem__(self, index):
+           return self.items[index]
+
+       def __setitem__(self, index, value):
+           self.items.insert(index, value)
+
+   cart = ShoppingCart()
+   cart[0] = "Apples"  # Using __setitem__
+   print(cart[0])      # Using __getitem__, Output: Apples
+   ```
+
+   In this case, the `__getitem__` and `__setitem__` methods enable index-based access to the `items` in the shopping cart.
+
+### Real-Time Example: Customizing a Class with Magic Methods
+
+Let's put it all together in a real-time example using a `Vector` class to represent mathematical vectors.
+
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __len__(self):
+        return int((self.x ** 2 + self.y ** 2) ** 0.5)
+
+# Creating vector objects
+v1 = Vector(2, 3)
+v2 = Vector(5, 7)
+
+# Using __str__ to print the vector
+print(v1)  # Output: Vector(2, 3)
+
+# Adding two vectors using __add__
+v3 = v1 + v2
+print(v3)  # Output: Vector(7, 10)
+
+# Getting the length of the vector using __len__
+print(len(v3))  # Output: 12 (length calculated using Pythagorean theorem)
+```
+
+### Summary
+
+- **Magic methods** allow you to define the behavior of your objects for built-in operations.
+- Common magic methods include `__init__`, `__str__`, `__repr__`, `__len__`, `__getitem__`, and `__setitem__`.
+- They help you create more intuitive and user-friendly classes in Python, making your code cleaner and easier to understand.
+---
+### Operator Overloading in Python
+
+**Operator overloading** allows you to redefine or customize the behavior of Python's built-in operators (`+`, `-`, `*`, `/`, etc.) for your custom objects. This is done by overriding specific magic methods in your class.
+
+#### Key Magic Methods for Operator Overloading:
+
+- `__add__(self, other)`: Defines the behavior of the `+` operator.
+- `__sub__(self, other)`: Defines the behavior of the `-` operator.
+- `__mul__(self, other)`: Defines the behavior of the `*` operator.
+- `__truediv__(self, other)`: Defines the behavior of the `/` operator.
+- `__eq__(self, other)`: Defines the behavior of the `==` operator.
+- `__lt__(self, other)`: Defines the behavior of the `<` operator.
+- `__gt__(self, other)`: Defines the behavior of the `>` operator.
+
+### Example 1: Operator Overloading with Vectors
+
+Let's overload operators to define how two vectors should be added, subtracted, and multiplied by a scalar.
+
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    # Overloading the + operator
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    # Overloading the - operator
+    def __sub__(self, other):
+        return Vector(self.x - other.x, self.y - other.y)
+
+    # Overloading the * operator (for scalar multiplication)
+    def __mul__(self, scalar):
+        return Vector(self.x * scalar, self.y * scalar)
+
+    # Overloading the == operator to compare two vectors
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    # String representation of the Vector object
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+
+# Create objects of the Vector class
+v1 = Vector(2, 3)
+v2 = Vector(4, 5)
+
+# Use overloaded operators
+print(v1 + v2)  # Output: Vector(6, 8)
+print(v1 - v2)  # Output: Vector(-2, -2)
+print(v1 * 3)   # Output: Vector(6, 9)
+print(v1 == v2) # Output: False
+```
+
+#### Explanation:
+- **`__add__`**: Adds two vectors by adding their `x` and `y` components.
+- **`__sub__`**: Subtracts two vectors component-wise.
+- **`__mul__`**: Multiplies the vector by a scalar value.
+- **`__eq__`**: Compares two vectors for equality based on their `x` and `y` components.
+- **`__repr__`**: Provides a string representation, which helps when printing the vector.
+
+### Example 2: Operator Overloading with Complex Numbers
+
+Here’s how you can overload operators to perform addition, subtraction, multiplication, and division on complex numbers.
+
+```python
+class ComplexNumber:
+    def __init__(self, real, imag):
+        self.real = real
+        self.imag = imag
+
+    # Overloading the + operator
+    def __add__(self, other):
+        return ComplexNumber(self.real + other.real, self.imag + other.imag)
+
+    # Overloading the - operator
+    def __sub__(self, other):
+        return ComplexNumber(self.real - other.real, self.imag - other.imag)
+
+    # Overloading the * operator
+    def __mul__(self, other):
+        real_part = self.real * other.real - self.imag * other.imag
+        imag_part = self.real * other.imag + self.imag * other.real
+        return ComplexNumber(real_part, imag_part)
+
+    # Overloading the / operator
+    def __truediv__(self, other):
+        denominator = other.real ** 2 + other.imag ** 2
+        real_part = (self.real * other.real + self.imag * other.imag) / denominator
+        imag_part = (self.imag * other.real - self.real * other.imag) / denominator
+        return ComplexNumber(real_part, imag_part)
+
+    # Overloading the == operator
+    def __eq__(self, other):
+        return self.real == other.real and self.imag == other.imag
+
+    # String representation of the complex number
+    def __repr__(self):
+        return f"{self.real} + {self.imag}i"
+
+# Create objects of the ComplexNumber class
+c1 = ComplexNumber(2, 3)
+c2 = ComplexNumber(1, 4)
+
+# Use overloaded operators
+print(c1 + c2)  # Output: 3 + 7i
+print(c1 - c2)  # Output: 1 - 1i
+print(c1 * c2)  # Output: -10 + 11i
+print(c1 / c2)  # Output: 0.8235294117647058 + -0.29411764705882354i
+print(c1 == c2) # Output: False
+```
+
+![image](https://github.com/user-attachments/assets/a6d4da2f-6be6-4da9-86ce-2fe107befe97)
+
+### Summary of Operator Overloading:
+- **Operator overloading** allows you to use standard operators with custom objects.
+- You do this by overriding the special magic methods like `__add__`, `__sub__`, `__mul__`, etc.
+- The goal is to make objects behave in a way that is natural for mathematical or logical operations.
+
